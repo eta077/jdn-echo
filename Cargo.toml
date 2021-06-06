@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+    "echo",
+    "echo-server",
+]
