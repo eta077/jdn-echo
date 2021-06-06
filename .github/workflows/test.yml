@@ -1,13 +1,13 @@
 on:
   pull_request:
     branches:
-      - release
+      - release*
 
-name: Test with Code Coverage
+name: Test
 
 jobs:
   test:
-    name: Test
+    name: Test with coverage
     env:
       PROJECT_NAME_UNDERSCORE: jdn_echo
       CARGO_INCREMENTAL: 0
