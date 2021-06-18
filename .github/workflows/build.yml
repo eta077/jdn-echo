@@ -1,7 +1,10 @@
 on:
+  push:
+    branches:
+      - release
   pull_request:
     branches:
-      - release*
+      - release
 
 name: Build
 
