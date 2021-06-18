@@ -1,5 +1,6 @@
 mod lib;
 
+use std::io::Write;
 use std::net::SocketAddr;
 use std::str::FromStr;
 use std::sync::{Arc, Mutex};
@@ -50,7 +51,12 @@ impl CliHandler for EchoCliHandler {
         COMMANDS.iter().cloned().collect()
     }
 
-    fn handle_command(&self, command: &str, args: Vec<String>) -> Result<(), CliError> {
+    fn handle_command(
+        &self,
+        command: &str,
+        args: Vec<String>,
+        writer: &mut dyn Write,
+    ) -> Result<(), CliError> {
         match command {
             SET_ADDRESS_COMMAND => {
                 if let Some(address) = args.get(0) {
@@ -67,10 +73,14 @@ impl CliHandler for EchoCliHandler {
                 }
             }
             IS_RUNNING_COMMAND => {
-                println!("{}", self.client.lock().unwrap().is_running());
+                writeln!(writer, "{}", self.client.lock().unwrap().is_running()).map_err(|_| {
+                    CliError::ExecutionError(String::from("Unable to write output"))
+                })?;
             }
             IS_CONNECTED_COMMAND => {
-                println!("{}", self.client.lock().unwrap().is_connected());
+                writeln!(writer, "{}", self.client.lock().unwrap().is_connected()).map_err(
+                    |_| CliError::ExecutionError(String::from("Unable to write output")),
+                )?;
             }
             SEND_MESSAGE_COMMAND => {
                 if let Some(message) = args.get(0) {
