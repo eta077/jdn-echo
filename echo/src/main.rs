@@ -17,11 +17,11 @@ fn main() {
     cli_manager.start();
 }
 
-const SET_ADDRESS_COMMAND: &'static str = "set-address";
-const IS_RUNNING_COMMAND: &'static str = "is-running";
-const IS_CONNECTED_COMMAND: &'static str = "is-connected";
-const SEND_MESSAGE_COMMAND: &'static str = "send-message";
-const START_COMMAND: &'static str = "start";
+const SET_ADDRESS_COMMAND: &str = "set-address";
+const IS_RUNNING_COMMAND: &str = "is-running";
+const IS_CONNECTED_COMMAND: &str = "is-connected";
+const SEND_MESSAGE_COMMAND: &str = "send-message";
+const START_COMMAND: &str = "start";
 const STOP_COMMAND: &str = "stop";
 const COMMANDS: [&str; 6] = [
     SET_ADDRESS_COMMAND,

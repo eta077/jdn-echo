@@ -45,7 +45,7 @@ impl EchoServer {
         if self.running.swap(true, Ordering::Relaxed) {
             return;
         }
-        let accept_address = self.address.clone();
+        let accept_address = self.address;
         let accept_running = Arc::clone(&self.running);
         thread::Builder::new()
             .name(String::from("JdnEcho-TcpListener-accept"))
@@ -68,7 +68,7 @@ impl EchoServer {
                     match listener.accept() {
                         Ok((mut socket, addr)) => {
                             println!("Accepted connection from {}", addr);
-                            if let Err(_) = socket.set_nonblocking(true) {
+                            if socket.set_nonblocking(true).is_err() {
                                 continue;
                             }
                             thread::Builder::new()

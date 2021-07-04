@@ -67,7 +67,7 @@ impl EchoClient {
         }
         let connect_running = Arc::clone(&self.running);
         let connect_connected = Arc::clone(&self.connected);
-        let connect_address = self.address.clone();
+        let connect_address = self.address;
         let sender = Arc::clone(&self.sender);
         thread::Builder::new()
             .name(String::from("JdnEcho-TcpStream-connect"))
@@ -80,7 +80,7 @@ impl EchoClient {
                     match stream_result {
                         Ok(stream) => {
                             println!("Successfully connected to {}", connect_address);
-                            if let Err(_) = stream.set_nonblocking(true) {
+                            if stream.set_nonblocking(true).is_err() {
                                 continue;
                             }
                             connect_connected.store(true, Ordering::Relaxed);

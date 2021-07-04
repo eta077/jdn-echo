@@ -17,9 +17,9 @@ fn main() {
     cli_manager.start();
 }
 
-const SET_ADDRESS_COMMAND: &'static str = "set-address";
-const IS_RUNNING_COMMAND: &'static str = "is-running";
-const START_COMMAND: &'static str = "start";
+const SET_ADDRESS_COMMAND: &str = "set-address";
+const IS_RUNNING_COMMAND: &str = "is-running";
+const START_COMMAND: &str = "start";
 const STOP_COMMAND: &str = "stop";
 const COMMANDS: [&str; 4] = [
     SET_ADDRESS_COMMAND,
